@@ -1,0 +1,33 @@
+{
+  "name": "inventoryecho",
+  "version": "1.0.0",
+  "description": "InventoryEcho",
+  "main": "app.js",
+  "dependencies": {
+    "babel-loader": "^8.0.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  },
+  "scripts": {
+    "test": "mocha",
+    "babel": "babel"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evanugarte/InventoryEcho.git"
+  },
+  "author": "Evan Ugarte",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evanugarte/InventoryEcho/issues"
+  },
+  "homepage": "https://github.com/evanugarte/InventoryEcho#readme"
+}
