@@ -21,7 +21,7 @@ With Node installed, clone this repository with
     1. Go to java file location in your machine: `cd Inventory Echo`
     2. Install all dependencies with `npm install` and `npm client-install`
     3. To run the program: `npm run start`
-        *To run in development mode: `npm run dev`
+        * To run in development mode: `npm run dev`
 
 ## Authors
 
