@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import AppNavbar from "./components/AppNavbar";
+import Root from "./components/Root";
 import InventoryList from "./components/InventoryList";
 import ItemModal from "./components/itemModal";
-import { Container } from "reactstrap";
-
-import { Provider } from "react-redux";
-import store from "./store";
+import InventoryView from "./components/InventoryView";
+import SaleView from "./components/SaleView";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -13,15 +12,13 @@ import "./App.css";
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <div className="App">
-          <AppNavbar />
-          <Container>
-            <ItemModal />
-            <InventoryList />
-          </Container>
+      <Router>
+        <div>
+          <Route path={"/"} component={Root}></Route>
+          <Route path={"/inventory"} component={InventoryView}></Route>
+          <Route path={"/sale"} component={SaleView}></Route>
         </div>
-      </Provider>
+      </Router>
     );
   }
 }
