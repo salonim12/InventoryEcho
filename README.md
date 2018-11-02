@@ -6,9 +6,11 @@ This web app works as a database to manage a student organization’s inventory 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
-You need **Node.js** prior to installing.
+You need **Node.js** and **Redux DevTools** prior to installing.
 * Install Node.js
     * On Windows, Linux and MacOS, install the latest [Node version](https://nodejs.org/en/download/) from the Node.js website. 
+* Install Node.js
+    * On Windows, Linux and MacOS, install the latest [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) from the Google Chrome extension store.
 
 ### Installing
 
