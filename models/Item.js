@@ -11,7 +11,23 @@ const ItemSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  quantity: {
+    type: Number,
+    default: 0
+  },
+  purchasePrice: {
+    type: Number,
+    default: 0
+  },
+  sellPrice: {
+    type: Number,
+    default: 0
+  },
+  barcode: {
+    type: String,
+    default: ""
+  },
 });
 
 module.exports = Item = mongoose.model("item", ItemSchema);
