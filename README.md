@@ -14,13 +14,13 @@ You need **Node.js** and **Redux DevTools** prior to installing.
 
 ### Installing
 
-With Node installed, clone this repository with
+With Node and Redux DevTools installed, clone this repository with
 
 `git clone https://github.com/evanugarte/InventoryEcho.git`
 
 ## To Run:
 * In Command Prompt:
-    1. Go to java file location in your machine: `cd Inventory Echo`
+    1. Go to java file location in your machine: `cd InventoryEcho`
     2. Install all dependencies with `npm install` and `npm run client-install`
     3. To run the program: `npm run start`
         * To run in development mode: `npm run dev`
