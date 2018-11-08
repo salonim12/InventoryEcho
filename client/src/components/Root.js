@@ -29,7 +29,13 @@ class Root extends Component {
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="https://github.com/evanugarte">Github</NavLink>
+                  <NavLink href="/sale">Sale View</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/inventory">Inventory View</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="https://github.com/evanugarte/InventoryEcho">Github</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
