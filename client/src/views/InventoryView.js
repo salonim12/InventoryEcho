@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import InventoryList from "./InventoryList";
-import ItemModal from "./itemModal";
+import InventoryList from "../components/InventoryList";
+import ItemModal from "../components/itemModal";
 import { Container } from "reactstrap";
 
 import { Provider } from "react-redux";
