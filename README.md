@@ -27,7 +27,9 @@ With Node and Redux DevTools installed, clone this repository with
 
 ## Authors
 
-**Evan Ugarte** - *All work up to today* - [evanugarte](https://github.com/evanugarte)
+*All work up to today*
+**Evan Ugarte** - [evanugarte](https://github.com/evanugarte)
+**Ali Zand** - [alizand1992](https://github.com/alizand1992)
 
 ## Acknowledgments
 
