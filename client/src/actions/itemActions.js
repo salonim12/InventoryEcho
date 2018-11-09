@@ -1,10 +1,24 @@
 import axios from "axios";
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from "./types";
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, SEARCH_ITEMS } from "./types";
 
 export const setItemsLoading = () => {
   return {
     type: ITEMS_LOADING
   };
+};
+
+export const submitSearch = (newSearch) => (dispatch) => {
+  axios
+    .get("/api/product/search/", { params: newSearch })
+    // /api/product/search/?description=searchString
+    // if success then res.data will be the product object we looking for
+    .then(res => {
+      dispatch({
+        type: SEARCH_ITEMS,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
 };
 
 export const getItems = () => (dispatch) => {
