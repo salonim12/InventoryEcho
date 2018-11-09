@@ -4,7 +4,6 @@ import InventoryView from "./components/InventoryView";
 import SaleView from "./components/SaleView";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 class App extends Component {

@@ -9,7 +9,8 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "mocha"
+    "build": "npm run build --prefix client",
+    "test": "react-scripts test --env=jsdom"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/evanugarte/InventoryEcho/issues"
   },
-  "homepage": "https://github.com/evanugarte/InventoryEcho#readme",
+  "homepage": "https://evanugarte.github.io/InventoryEcho/",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
@@ -39,6 +40,9 @@
     "concurrently": "^4.0.1",
     "express": "^4.16.3",
     "mongoose": "^5.2.18",
-    "react-router-dom": "^4.3.1"
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.1"
   }
 }
