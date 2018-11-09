@@ -7,11 +7,9 @@ export const setItemsLoading = () => {
   };
 };
 
-export const submitSearch = (newSearch) => (dispatch) => {
+export const sendQuery = (newQuery) => (dispatch) => {
   axios
-    .get("/api/product/search/", { params: newSearch })
-    // /api/product/search/?description=searchString
-    // if success then res.data will be the product object we looking for
+    .get("/api/items/search/", { params: newQuery })
     .then(res => {
       dispatch({
         type: SEARCH_ITEMS,

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 // Nav
 import Nav from "./Navigation";
@@ -8,17 +8,19 @@ import Nav from "./Navigation";
 import HomeView from "../views/HomeView";
 import InventoryView from "../views/InventoryView";
 import SaleView from "../views/SaleView";
+import ItemSearch from "../components/ItemSearch"
 
 class MainLayout extends Component {
   render() {
     return (
       <div>
         <Nav />
-        <switch>
+        <Switch>
           <Route path="/" exact component={HomeView} />
           <Route path="/inventory" component={InventoryView} />
           <Route path="/sale" component={SaleView} />
-        </switch>
+          <Route path="/search" component={ItemSearch} />
+        </Switch>
       </div>
     );
   }
