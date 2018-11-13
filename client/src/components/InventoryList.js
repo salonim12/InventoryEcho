@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Container, ListGroup, Button, ListGroupItem } from "reactstrap";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getItems, deleteItem } from "../actions/itemActions";
 import PropTypes from "prop-types";
+
+import { moneyFormat } from "../helpers/helpers";
 
 class InventoryList extends Component {
   componentDidMount() {
@@ -20,17 +22,19 @@ class InventoryList extends Component {
       <Container>
         <ListGroup>
           <TransitionGroup>
-            {items.map(({ _id, name, quantity }) => (
+            {items.map(({ _id, name, quantity, sellPrice }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
                   <Button
-                    className="remove-btn"
+                    className="remove-btn float-right"
                     color="danger"
                     onClick={this.onDeleteClick.bind(this, _id)}
                   >
                     &times;
                 </Button>
-                  {name}
+                  {name}<br />
+                  Quantity: {quantity}<br />
+                  {moneyFormat(sellPrice)}
                 </ListGroupItem>
               </CSSTransition>
             ))}
