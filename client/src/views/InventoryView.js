@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import InventoryList from "../components/InventoryList";
 import ItemModal from "../components/itemModal";
+import SearchBar from "../components/SearchBar";
 import { Container } from "reactstrap";
 
 import { Provider } from "react-redux";
@@ -17,6 +18,8 @@ class InventoryView extends Component {
           <Container>
             <ItemModal />
             <InventoryList />
+            <SearchBar />
+            <ItemModal />
           </Container>
         </div>
       </Provider>

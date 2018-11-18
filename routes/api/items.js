@@ -28,6 +28,49 @@ router.post("/", (req, res) => {
   newItem.save().then(item => res.json(item));
 });
 
+// @route GET api/product/search
+// @desc Search for a product using the input string from search bar
+// @access Public
+// receive req to query from submitQuery at /actions/queryActions.js
+//NOTE:
+// search/?string <-we use-> req.query
+// search/:string <-we use-> req.params
+router.get("/search/", (req, res) => {
+  if (req.query.name) {
+    // find part of string which include lower and upper case
+    const regex = new RegExp(req.query.name, "i");
+    // find return [ ]
+    Item.find({ name: regex })
+      .then(item => {
+        if (!item) {
+          // if item not found
+          errors = { query: "item not found" };
+          return res.status(404).json(errors);
+        }
+        res.send(item);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  } else if (req.query.barcode) {
+    // find part of string which include lower and upper case
+    const regex = new RegExp(req.query.barcode, "i");
+    // find return [ ]
+    Item.find({ barcode: regex })
+      .then(item => {
+        if (!item) {
+          // if item not found
+          errors = { query: "item not found" };
+          return res.status(404).json(errors);
+        }
+        res.send(item);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+});
+
 // @route   delete request api/items/:id
 // @desc    Delete an item
 // @access  Public

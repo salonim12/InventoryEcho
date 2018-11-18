@@ -2,11 +2,13 @@ import {
   GET_ITEMS,
   ADD_ITEM,
   DELETE_ITEM,
-  ITEMS_LOADING
+  ITEMS_LOADING,
+  SEARCH_ITEMS
 } from "../actions/types";
 
 const initialState = {
   items: [],
+  itemQuery: null,
   loading: false
 };
 
@@ -32,6 +34,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: true
+      };
+    case SEARCH_ITEMS:
+      return {
+        ...state,
+        itemQuery: action.payload
       };
     default:
       return {

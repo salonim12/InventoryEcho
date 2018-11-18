@@ -1,26 +1,32 @@
 import React, { Component } from "react";
-import { ListGroupItem, Button } from "reactstrap";
+import { ListGroupItem } from "reactstrap";
 import { CSSTransition } from "react-transition-group";
+// import { connect } from "react-redux";
+// import { deleteItem } from "../actions/itemActions";
+// import PropTypes from "prop-types";
 
 class Item extends Component {
-  state = this.props;
   componentDidMount() {
   }
+
+  onDeleteClick = (id) => {
+    this.props.deleteItem(id);
+  };
 
   render() {
     return (
       <div className="item">
-        <CSSTransition key={this.state._id} timeout={500} classNames="fade">
+        <CSSTransition key={this.props._id} timeout={500} classNames="fade">
           <ListGroupItem>
-            <Button
+            {/* <Button
               className="remove-btn"
               color="danger"
-              onClick={this.state.onDeleteClick.bind(this, this.state._id)}
+            onClick={this.props.onDeleteClick.bindbind(this, this.props._id)}
             >
               &times;
-            </Button>
-            {this.state.name}
-            {this.state.quantity}
+            </Button> */}
+            <h3>{this.props.name}</h3>
+            <p>{this.props.quantity}</p>
           </ListGroupItem>
         </CSSTransition>
       </div>
