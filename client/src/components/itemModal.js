@@ -19,7 +19,7 @@ class ItemModal extends Component {
     quantity: 0,
     purchasePrice: 0,
     sellPrice: 0,
-    barcode: "32232",
+    barcode: "",
   };
 
   toggle = () => {

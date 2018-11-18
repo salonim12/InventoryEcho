@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { Container, ListGroup, Button, ListGroupItem } from "reactstrap";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 import { getItems, deleteItem } from "../actions/itemActions";
 import PropTypes from "prop-types";
@@ -20,7 +20,7 @@ class InventoryList extends Component {
       <Container>
         <ListGroup>
           <TransitionGroup>
-            {items.map(({ _id, name }) => (
+            {items.map(({ _id, name, quantity }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
                   <Button
@@ -29,7 +29,7 @@ class InventoryList extends Component {
                     onClick={this.onDeleteClick.bind(this, _id)}
                   >
                     &times;
-                  </Button>
+                </Button>
                   {name}
                 </ListGroupItem>
               </CSSTransition>

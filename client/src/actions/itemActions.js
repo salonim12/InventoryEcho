@@ -1,10 +1,22 @@
 import axios from "axios";
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from "./types";
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, SEARCH_ITEMS } from "./types";
 
 export const setItemsLoading = () => {
   return {
     type: ITEMS_LOADING
   };
+};
+
+export const sendQuery = (newQuery) => (dispatch) => {
+  axios
+    .get("/api/items/search/", { params: newQuery })
+    .then(res => {
+      dispatch({
+        type: SEARCH_ITEMS,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
 };
 
 export const getItems = () => (dispatch) => {
