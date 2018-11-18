@@ -1,9 +1,8 @@
 language: node_js
 node_js:
  - "stable"
-cache:
-  directories:
-  - node_modules
+install:
+ - cd client
+ - npm install
 script:
-  - npm run client-install
-  - npm run build
+ - npm run build
