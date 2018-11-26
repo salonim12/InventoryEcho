@@ -19,16 +19,23 @@ class Item extends Component {
   render() {
     return (
       <CSSTransition key={this.state._id} timeout={500} classNames="fade">
-        <ListGroupItem onClick={this.props.toggleShowEditModal.bind(this, this.state)}>
-          <Button className={"btn btn-danger float-right"}
-                  onClick={this.onDeleteClick.bind(this, this.state._id)}
-          >
-            &times;
-          </Button>
-          {this.state.name}<br/>
-          {this.state.quantity}<br/>
-          {moneyFormat(this.state.sellPrice)}
-        </ListGroupItem>
+        <React.Fragment>
+          <ListGroupItem >
+            <div style={{ display: "inline-block", width: "90%" }}>
+              <div style={{ float: "left" }} onClick={this.props.toggleShowEditModal.bind(this, this.state)}>
+                {this.state.name}<br />
+                {this.state.quantity}<br />
+                {moneyFormat(this.state.sellPrice)}
+              </div>
+              <Button className={"btn btn-danger float-right"}
+                onClick={this.onDeleteClick.bind(this, this.state._id)}
+              >
+                &times;
+            </Button>
+            </div>
+          </ListGroupItem>
+
+        </React.Fragment>
       </CSSTransition>
     );
   }
