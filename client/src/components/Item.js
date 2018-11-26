@@ -1,37 +1,44 @@
 import React, { Component } from "react";
-import { ListGroupItem } from "reactstrap";
+import { ListGroupItem, Button } from "reactstrap";
 import { CSSTransition } from "react-transition-group";
-// import { connect } from "react-redux";
-// import { deleteItem } from "../actions/itemActions";
-// import PropTypes from "prop-types";
+import { moneyFormat } from "../helpers/helpers";
+import { deleteItem } from "../actions/itemActions";
+import connect from "react-redux/es/connect/connect";
 
 class Item extends Component {
-  componentDidMount() {
-  }
+  state = this.props.item;
 
   onDeleteClick = (id) => {
     this.props.deleteItem(id);
   };
 
+  toggleShowEditModal = (item) => {
+    this.props.toggleShowEditModal(item);
+  };
+
   render() {
     return (
-      <div className="item">
-        <CSSTransition key={this.props._id} timeout={500} classNames="fade">
-          <ListGroupItem>
-            {/* <Button
-              className="remove-btn"
-              color="danger"
-            onClick={this.props.onDeleteClick.bindbind(this, this.props._id)}
-            >
-              &times;
-            </Button> */}
-            <h3>{this.props.name}</h3>
-            <p>{this.props.quantity}</p>
-          </ListGroupItem>
-        </CSSTransition>
-      </div>
+      <CSSTransition key={this.state._id} timeout={500} classNames="fade">
+        <ListGroupItem onClick={this.props.toggleShowEditModal.bind(this, this.state)}>
+          <Button className={"btn btn-danger float-right"}
+                  onClick={this.onDeleteClick.bind(this, this.state._id)}
+          >
+            &times;
+          </Button>
+          {this.state.name}<br/>
+          {this.state.quantity}<br/>
+          {moneyFormat(this.state.sellPrice)}
+        </ListGroupItem>
+      </CSSTransition>
     );
   }
 }
 
-export default Item;
+const mapStateToProps = (state) => ({
+
+});
+
+export default connect(
+  mapStateToProps,
+  { deleteItem }
+)(Item);
