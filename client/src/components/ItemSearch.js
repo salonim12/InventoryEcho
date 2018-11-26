@@ -13,11 +13,7 @@ class ItemSearch extends Component {
       const itemsList = itemQuery.map(item => {
         return (
           <div className="col-md-3 pb-3" key={item._id}>
-            <Item
-              key={item._id}
-              name={item.name}
-              quantity={item.quantity}
-            />
+            <Item item={item} />
           </div>
         );
       });
