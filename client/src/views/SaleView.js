@@ -1,16 +1,23 @@
 import React, { Component } from "react";
 import { Container } from "reactstrap";
+import BarcodeEntry from "./../components/BarcodeEntry";
+import RecentSales from "./../components/RecentSales";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "react-redux";
+import store from "./../store";
 
 class SaleView extends Component {
   render() {
     return (
-      <React.Fragment>
-        <Container>
-          <h1>Yahoo welcome to SaleView</h1>
-        </Container>
-      </React.Fragment>
+      <Provider store={store}>
+        <React.Fragment>
+          <Container>
+            <h1>Yahoo welcome to SaleView</h1>
+            <BarcodeEntry />
+            <RecentSales />
+          </Container>
+        </React.Fragment>
+      </Provider>
     );
   }
 }

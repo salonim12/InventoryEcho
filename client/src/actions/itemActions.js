@@ -47,3 +47,13 @@ export const addItem = (item) => (dispatch) => {
     })
   );
 };
+
+export const editItem = (item) => (dispatch) => {
+  // send post request to add item
+  axios.post("/api/items", item).then((res) =>
+    dispatch({
+      type: ADD_ITEM,
+      payload: res.data
+    })
+  );
+};
