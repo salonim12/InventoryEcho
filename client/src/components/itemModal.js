@@ -29,7 +29,13 @@ class ItemModal extends Component {
   };
 
   onChange = (e) => {
-    this.setState({ [e.target.id]: e.target.value });
+    //Prevent the form being submitted by hitting the enter button
+    if (e.key === "Enter") {
+      e.preventDefault();
+    } else {
+      //If the enter key wasn't hit, then we simply save the data of the textbox 
+      this.setState({ [e.target.id]: e.target.value });
+    }
   };
 
   onSubmit = (e) => {
@@ -75,6 +81,7 @@ class ItemModal extends Component {
                       type="text"
                       name={item.id}
                       id={item.id}
+                      onKeyDown={this.handleKeyDown}
                       placeholder={`Add ${item.name} Here...`}
                       onChange={this.onChange}
                     />
