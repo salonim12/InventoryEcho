@@ -26,7 +26,7 @@ class SaleModal extends Component {
       soldItem: {
         name: "none",
         _id: "none",
-        quantity: 0,
+        quantity: -1,
         sellPrice: 0,
         barcode: 0
       }
@@ -37,7 +37,6 @@ class SaleModal extends Component {
   updateSoldItem = () => {
     setTimeout(
       function () {
-        console.log(this.state.currentPrice);
         //Save Desired Fields to the state to be logged in the database for sold items
         this.setState({
           soldItem: {
@@ -62,7 +61,6 @@ class SaleModal extends Component {
         this.setState({
           currentPrice: currentTotal,
         });
-        console.log(this.currentItem);
       }
         .bind(this),
       10
@@ -129,10 +127,9 @@ class SaleModal extends Component {
 
   logSale = () => {
     //We need to verify that the quantity entered is within reasonable bounds
-    if (this.currentItem.quantity >= this.state.currentQuantity && this.state.currentQuantity > -1) {
-      this.currentItem.quantity -= this.state.currentQuantity
+    if (this.currentItem.quantity >= this.state.currentQuantity && this.state.currentQuantity > 0) {
+      this.currentItem.quantity -= this.state.currentQuantity;
       this.updateSoldItem();
-      console.log("\n\n\n\n" + this.state.soldItem._id);
       this.props.addItem(this.currentItem);
       this.props.addSoldItem(this.state.soldItem);
       this.props.toggle();
