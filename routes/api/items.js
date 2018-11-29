@@ -21,7 +21,9 @@ router.post("/", (req, res) => {
   const newItem = {};
 
   if (req.body.name) newItem.name = req.body.name;
-  if (req.body.quantity) newItem.quantity = req.body.quantity;
+  if (req.body.quantity !== -1) {
+    newItem.quantity = req.body.quantity;
+  }
   if (req.body.purchasePrice) newItem.purchasePrice = req.body.purchasePrice;
 
   if (req.body.sellPrice) newItem.sellPrice = req.body.sellPrice;
@@ -96,7 +98,7 @@ router.get("/search/", (req, res) => {
 router.delete("/:id", (req, res) => {
   Item.findById(req.params.id)
     .then(item => item.remove().then(() => res.json({ success: true })))
-    .catch(err => { console.log("FAIL\n\n\n\n\n\n"); res.status(404).json({ success: false }) });
+    .catch(err => { res.status(404).json({ success: false }) });
 });
 
 module.exports = router;
