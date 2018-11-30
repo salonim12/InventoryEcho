@@ -28,7 +28,15 @@ class ItemModal extends Component {
     });
   };
 
+  handleKeyDown = (e) => {
+    //Prevent the form being submitted by hitting the enter button
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  }
+
   onChange = (e) => {
+    //If the enter key wasn't hit, then we simply save the data of the textbox 
     this.setState({ [e.target.id]: e.target.value });
   };
 
@@ -69,12 +77,15 @@ class ItemModal extends Component {
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
                 {itemFields.map((item) =>
-                  <React.Fragment>
-                    <Label for={item.id}>{item.name}</Label>
+                  <React.Fragment
+                    key={item.id}>
+                    <Label
+                      for={item.id}>{item.name}</Label>
                     <Input
                       type="text"
                       name={item.id}
                       id={item.id}
+                      onKeyDown={this.handleKeyDown}
                       placeholder={`Add ${item.name} Here...`}
                       onChange={this.onChange}
                     />

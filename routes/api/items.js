@@ -20,14 +20,21 @@ router.post("/", (req, res) => {
   //Get Item fields and save it to a new item object
   const newItem = {};
 
-  if (req.body.name) newItem.name = req.body.name;
-  if (req.body.quantity !== -1) {
+  if (req.body.name) {
+    newItem.name = req.body.name;
+  }
+  if (parseInt(req.body.quantity, 10) > -1) {
     newItem.quantity = req.body.quantity;
   }
-  if (req.body.purchasePrice) newItem.purchasePrice = req.body.purchasePrice;
-
-  if (req.body.sellPrice) newItem.sellPrice = req.body.sellPrice;
-  if (req.body.barcode) newItem.barcode = req.body.barcode;
+  if (parseInt(req.body.purchasePrice, 10) > -1) {
+    newItem.purchasePrice = req.body.purchasePrice;
+  }
+  if (parseInt(req.body.sellPrice, 10) > -1) {
+    newItem.sellPrice = req.body.sellPrice;
+  }
+  if (parseInt(req.body.barcode, 10) > -1) {
+    newItem.barcode = req.body.barcode;
+  }
 
   //If an ID was passed, then we will look for the item by the passed ID and try to updae it
   if (req.body._id) {
