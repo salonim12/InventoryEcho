@@ -10,33 +10,39 @@ import {
   Label
 } from "reactstrap";
 import { moneyFormat } from "./../helpers/helpers";
+import { connect } from "react-redux";
+import { addItem } from "../actions/itemActions";
+import PropTypes from "prop-types";
 
 class ItemEditModal extends Component {
-  state = {
-    shoeEditModal: this.props.showEditModal,
-    editActive: false,
-    item: {
-      name: "",
-      quantity: 0,
-      sellPrice: 0,
-      purchasePrice: 0,
-      barcode: "",
-      _id: ""
-    }
-  };
-
-  componentDidMount = () => {
-    this.setState({
+  constructor(props) {
+    super(props);
+    this.state = {
+      showEditModal: this.props.showEditModal,
+      editActive: false,
+      previouslyEdited: false,
       item: {
-        //_id: this.props.item._id
+        name: null,
+        quantity: null,
+        sellPrice: null,
+        purchasePrice: null,
+        barcode: null,
+        _id: null
       }
-    });
-    console.log(this.props.item);
-  };
+    };
+  }
 
-  handleEdit = () => {
+  handleKeyDown = (e) => {
+    //Prevent the form being submitted by hitting the enter button
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  }
+
+  renderEditComponent = () => {
     const itemValues = [
       { name: "Name", value: this.props.item.name, id: "name" },
+      { name: "Quantity", value: this.props.item.quantity, id: "quantity" },
       {
         name: "Purchase Price",
         value: this.props.item.purchasePrice,
@@ -47,40 +53,30 @@ class ItemEditModal extends Component {
         value: this.props.item.sellPrice,
         id: "sell-price"
       },
-      { name: "Barcode", value: this.props.item.barcode, id: "barcode" }
+      { name: "Barcode", value: this.props.item.barcode, id: "barcode" },
     ];
+    //Decide whether to render item data or textboxes to edit item data
     if (this.state.editActive) {
+      //If edit button is enabled
       return (
         <React.Fragment>
-          <h3>{this.props.item.name}</h3>
-          <Label>Quantity:</Label>
-          <Input
-            defaultValue={this.props.item.quantity}
-            id={"quantity"}
-            onChange={this.handleChange}
-            placeHolder="Qunantity:"
-          />
-          <Label>Purchase Price:</Label>
-          <Input
-            defaultValue={this.props.item.purchasePrice}
-            id={"quantity"}
-            placeHolder="Purchase Price:"
-          />
-          <Label>Sell Price:</Label>
-          <Input
-            defaultValue={this.props.item.sellPrice}
-            id={"quantity"}
-            placeholder="Sell Price:"
-          />
-          <Label>Barcode:</Label>
-          <Input
-            defaultValue={this.props.item.barcode}
-            id={"quantity"}
-            placeholder="Barcode:"
-          />
-        </React.Fragment>
+          <p style={{ fontSize: 15 }} >Any fields left blank, unchanged, or with invalid entries will default to their original value.</p>
+          {itemValues.map((item) =>
+            <React.Fragment>
+              <Label>{item.name.includes("Price") || item.name.includes("Quantity") ? `${item.name} (number)` : `${item.name} (string)`}:</Label>
+              <Input
+                defaultValue={item.value}
+                id={item.id}
+                onKeyDown={this.handleKeyDown}
+                onChange={this.onChange}
+                placeholder={`${item.name}:`}
+              />
+            </React.Fragment>
+          )};
+        </React.Fragment >
       );
     } else {
+      //If edit button isn't enabled
       return (
         <React.Fragment>
           <h3>{this.props.item.name}</h3>
@@ -93,59 +89,67 @@ class ItemEditModal extends Component {
     }
   };
 
-  toggleEdit = e => {
-    if (this.state.editActive) {
-    }
+  toggle = () => {
+    this.setState({
+      showEditModal: !this.state.showEditModal
+    });
+  }
+
+  toggleEditMode = () => {
     this.setState({
       editActive: !this.state.editActive,
       item: this.props.item
     });
   };
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       item: {
-        [e.target.id]: e.target.value
+        [e.target.id]: e.target.value,
+        _id: this.props.item._id
       }
     });
-    console.log(this.state.item);
   };
 
-  onSubmit = e => {};
+  sumbitEdit = () => {
+    if (this.state.editActive) {
+      this.props.addItem(this.state.item);
+      this.toggleEditMode();
+      this.setState({
+        previouslyEdited: true
+      });
+    }
+  }
 
   render() {
     if (this.props.item !== null) {
       return (
-        <Modal isOpen={this.props.showEditModal} toggle={this.toggle}>
+        <Modal isOpen={this.props.showEditModal} toggle={this.props.toggleShowEditModal}>
           <Form>
-            <ModalHeader>
+            <ModalHeader toggle={this.props.toggleShowEditModal}>
               <h2>Edit Item</h2>
-              <Button onClick={this.toggleEdit}>Edit</Button>
+              <Button onClick={this.toggleEditMode}>Edit</Button>
             </ModalHeader>
             <ModalBody>
-              {this.handleEdit()}
-              {/* <h3>{this.props.item.name}</h3>
-              <p>Qunantity: {this.props.item.quantity}</p>
-              <p>Purchase Price: {moneyFormat(this.props.item.purchasePrice)}</p>
-              <p>Sell Price: {moneyFormat(this.props.item.sellPrice)}</p>
-              <p>Barcode: {this.props.item.barcode}</p> */}
+              {this.renderEditComponent()}
             </ModalBody>
             <ModalFooter>
-              <Button
+              {this.state.editActive ? <Button
                 className={"btn btn-primary"}
-                onClick={this.props.toggleShowEditModal}
+                onClick={this.sumbitEdit}
               >
                 Save
-              </Button>
+              </Button> : <p></p>}
+              <p>{this.state.previouslyEdited && !this.state.editActive ? "Click Close to see Changes" : ""}</p>
               <Button
                 className={"btn btn-danger"}
                 onClick={this.props.toggleShowEditModal}
               >
-                Cancel
+                {this.state.editActive ? "Cancel" : "Close"}
               </Button>
             </ModalFooter>
           </Form>
-        </Modal>
+        </Modal >
       );
     } else {
       return <div />;
@@ -153,4 +157,16 @@ class ItemEditModal extends Component {
   }
 }
 
-export default ItemEditModal;
+ItemEditModal.propTypes = {
+  addItem: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+
+});
+
+export default connect(
+  mapStateToProps,
+  { addItem }
+)(ItemEditModal);

@@ -3,8 +3,21 @@ import { connect, Provider } from "react-redux";
 import { Row, Container } from "reactstrap"
 import Item from "./Item";
 import store from "./../store";
+import ItemEditModal from "./ItemEditModal";
 
 class ItemSearch extends Component {
+  state = {
+    showEditModal: false,
+    itemToEdit: null
+  };
+
+  toggleShowEditModal = (itemToEdit) => {
+    this.setState({
+      showEditModal: !this.state.showEditModal,
+      itemToEdit: { itemToEdit },
+    });
+  };
+
   render() {
     console.log(this.props);
     const { itemQuery } = this.props.item;
@@ -13,7 +26,7 @@ class ItemSearch extends Component {
       const itemsList = itemQuery.map(item => {
         return (
           <div className="col-md-3 pb-3" key={item._id}>
-            <Item item={item} />
+            <Item item={item} toggleShowEditModal={this.toggleShowEditModal} />
           </div>
         );
       });
@@ -21,6 +34,7 @@ class ItemSearch extends Component {
       return (
         <Provider store={store}>
           <Container>
+            <ItemEditModal showEditModal={this.state.showEditModal} item={this.state.itemToEdit} />
             <h1 className="category-title text-center font-weight-bold">
               Here's what we found...
           </h1>

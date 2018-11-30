@@ -29,11 +29,11 @@ class InventoryList extends Component {
     const { items } = this.props.item;
     return (
       <Container>
-        <ItemEditModal showEditModal={this.state.showEditModal} item={this.state.itemToEdit}/>
+        <ItemEditModal showEditModal={this.state.showEditModal} item={this.state.itemToEdit} />
         <ListGroup>
           <TransitionGroup>
             {items.map((item) => (
-              <Item item={item} toggleShowEditModal={this.toggleShowEditModal}/>
+              <Item key={item.name} item={item} toggleShowEditModal={this.toggleShowEditModal} />
             ))}
           </TransitionGroup>
         </ListGroup>
