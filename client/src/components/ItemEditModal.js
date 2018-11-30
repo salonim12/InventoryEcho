@@ -72,7 +72,7 @@ class ItemEditModal extends Component {
                 placeholder={`${item.name}:`}
               />
             </React.Fragment>
-          )};
+          )}
         </React.Fragment >
       );
     } else {
@@ -112,13 +112,11 @@ class ItemEditModal extends Component {
   };
 
   sumbitEdit = () => {
-    if (this.state.editActive) {
-      this.props.addItem(this.state.item);
-      this.toggleEditMode();
-      this.setState({
-        previouslyEdited: true
-      });
-    }
+    this.props.addItem(this.state.item);
+    this.toggleEditMode();
+    this.setState({
+      previouslyEdited: true
+    });
   }
 
   render() {

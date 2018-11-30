@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addItem } from "../actions/itemActions";
+import { validateNumericalEntry, validateWholeNumericalEntry } from "./../helpers/helpers"
 
 class ItemModal extends Component {
   state = {
@@ -44,12 +45,22 @@ class ItemModal extends Component {
     e.preventDefault();
 
     const newItem = this.state;
+    if (this.state.name !== "") {
+      if (validateWholeNumericalEntry(this.state.barcode) &&
+        validateWholeNumericalEntry(this.state.quantity) &&
+        validateNumericalEntry(this.state.sellPrice) &&
+        validateNumericalEntry(this.state.purchasePrice)) {
+        //Use ItemActions.js to add item
+        this.props.addItem(newItem);
 
-    //Use ItemActions.js to add item
-    this.props.addItem(newItem);
-
-    //close the modal
-    this.toggle();
+        //close the modal
+        this.toggle();
+      } else {
+        alert("Could not add item: Invalid Entries in Fields.")
+      }
+    } else {
+      alert("Please specify a name for your product.")
+    }
   };
 
   render() {
@@ -81,14 +92,25 @@ class ItemModal extends Component {
                     key={item.id}>
                     <Label
                       for={item.id}>{item.name}</Label>
-                    <Input
-                      type="text"
-                      name={item.id}
-                      id={item.id}
-                      onKeyDown={this.handleKeyDown}
-                      placeholder={`Add ${item.name} Here...`}
-                      onChange={this.onChange}
-                    />
+                    {item.id.includes("Price") || item.id.includes("quantity") ?
+                      <Input
+                        type="number"
+                        min="0"
+                        name={item.id}
+                        id={item.id}
+                        onKeyDown={this.handleKeyDown}
+                        placeholder={`Add ${item.name} Here...`}
+                        onChange={this.onChange}
+                      />
+                      : <Input
+                        type="text"
+                        name={item.id}
+                        id={item.id}
+                        onKeyDown={this.handleKeyDown}
+                        placeholder={`Add ${item.name} Here...`}
+                        onChange={this.onChange}
+                      />
+                    }
                   </React.Fragment>
                 )}
                 <Button color="dark" style={{ marginTop: "2rem" }} block>

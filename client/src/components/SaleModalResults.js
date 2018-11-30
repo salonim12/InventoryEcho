@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect, Provider } from "react-redux";
 import { addItem } from "../actions/itemActions";
 import { addSoldItem } from "../actions/saleActions"
-import { moneyFormat } from "../helpers/helpers";
+import { moneyFormat, validateWholeNumericalEntry } from "../helpers/helpers";
 import {
   Button,
   Container,
@@ -76,31 +76,6 @@ class SaleModal extends Component {
     this.updateSoldItem();
   };
 
-  increment = () => {
-    if (this.state.currentQuantity < this.currentItem.quantity) {
-      // we set the state's quantity to a temporary variable and incement
-      // this was done to stop a bug from appending a "1" to a manually
-      // entered value
-      let quantity = parseInt(this.state.currentQuantity);
-      quantity++;
-      this.setState({
-        currentQuantity: quantity
-      });
-      this.updateTotal();
-      this.updateSoldItem();
-    }
-  };
-
-  decrement = () => {
-    if (this.state.currentQuantity > 0) {
-      this.setState({
-        currentQuantity: this.state.currentQuantity - 1
-      });
-      this.updateTotal();
-      this.updateSoldItem();
-    }
-  };
-
   formatResults = (itemQuery) => {
     this.currentItem = itemQuery[0];
     return (
@@ -125,9 +100,15 @@ class SaleModal extends Component {
     );
   };
 
-  logSale = () => {
+  handleKeyDown = (e) => {
+    if ((e.key === "Enter" || e.which < 37 || e.which > 57) && e.which !== 8) {
+      e.preventDefault();
+    }
+  }
+
+  submitSaleResult = () => {
     //We need to verify that the quantity entered is within reasonable bounds
-    if (this.currentItem.quantity >= this.state.currentQuantity && this.state.currentQuantity > 0) {
+    if (this.currentItem.quantity >= this.state.currentQuantity && validateWholeNumericalEntry(this.state.currentQuantity)) {
       this.currentItem.quantity -= this.state.currentQuantity;
       this.updateSoldItem();
       this.props.addItem(this.currentItem);
@@ -153,7 +134,11 @@ class SaleModal extends Component {
                 <Col md="4" xs="3">
                   <Label>Select Quantity:</Label>
                   <Input
-                    value={this.state.currentQuantity}
+                    type="number"
+                    min="1"
+                    max={this.currentItem.quantity}
+                    defaultValue="1"
+                    onKeyDown={this.handleKeyDown}
                     onChange={this.handleChange}
                   />
                 </Col>
@@ -161,17 +146,9 @@ class SaleModal extends Component {
                   <Label>Total: </Label><Badge color="secondary">{moneyFormat(this.state.currentPrice)}</Badge>
                 </Col>
               </Row>
-              <Row>
-                <Button color="primary" onClick={this.increment}>
-                  Up
-                </Button>
-                <Button color="danger" onClick={this.decrement}>
-                  Down
-                </Button>
-              </Row>
             </Container>
             <ModalFooter>
-              <Button color="primary" onClick={this.logSale}>
+              <Button color="primary" onClick={this.submitSaleResult}>
                 Purchase
               </Button>{" "}
               <Button color="secondary" onClick={this.props.toggle}>
