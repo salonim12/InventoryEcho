@@ -27,6 +27,7 @@ class ItemEditModal extends Component {
         sellPrice: null,
         purchasePrice: null,
         barcode: null,
+        description: null,
         _id: null
       }
     };
@@ -46,14 +47,15 @@ class ItemEditModal extends Component {
       {
         name: "Purchase Price",
         value: this.props.item.purchasePrice,
-        id: "purchase-price"
+        id: "purchasePrice"
       },
       {
         name: "Sell Price",
         value: this.props.item.sellPrice,
-        id: "sell-price"
+        id: "sellPrice"
       },
       { name: "Barcode", value: this.props.item.barcode, id: "barcode" },
+      { name: "Description", value: this.props.item.description, id: "description" },
     ];
     //Decide whether to render item data or textboxes to edit item data
     if (this.state.editActive) {
@@ -84,6 +86,7 @@ class ItemEditModal extends Component {
           <p>Purchase Price: {moneyFormat(this.props.item.purchasePrice)}</p>
           <p>Sell Price: {moneyFormat(this.props.item.sellPrice)}</p>
           <p>Barcode: {this.props.item.barcode}</p>
+          <p>Description: {this.props.item.description}</p>
         </React.Fragment>
       );
     }
