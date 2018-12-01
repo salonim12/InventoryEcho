@@ -11,7 +11,10 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addItem } from "../actions/itemActions";
-import { validateNumericalEntry, validateWholeNumericalEntry } from "./../helpers/helpers"
+import {
+  validateNumericalEntry,
+  validateWholeNumericalEntry
+} from "./../helpers/helpers";
 
 class ItemModal extends Component {
   state = {
@@ -21,7 +24,7 @@ class ItemModal extends Component {
     purchasePrice: 0,
     sellPrice: 0,
     description: "",
-    barcode: "",
+    barcode: ""
   };
 
   toggle = () => {
@@ -35,10 +38,10 @@ class ItemModal extends Component {
     if (e.key === "Enter") {
       e.preventDefault();
     }
-  }
+  };
 
   onChange = (e) => {
-    //If the enter key wasn't hit, then we simply save the data of the textbox 
+    //If the enter key wasn't hit, then we simply save the data of the textbox
     this.setState({ [e.target.id]: e.target.value });
   };
 
@@ -47,22 +50,40 @@ class ItemModal extends Component {
 
     const newItem = this.state;
     if (this.state.name !== "") {
-      if (validateWholeNumericalEntry(this.state.barcode) &&
+      if (
+        validateWholeNumericalEntry(this.state.barcode) &&
         validateWholeNumericalEntry(this.state.quantity) &&
         validateNumericalEntry(this.state.sellPrice) &&
-        validateNumericalEntry(this.state.purchasePrice)) {
+        validateNumericalEntry(this.state.purchasePrice)
+      ) {
         //Use ItemActions.js to add item
         this.props.addItem(newItem);
 
         //close the modal
         this.toggle();
       } else {
-        alert("Could not add item: Invalid Entries in Fields.")
+        alert("Could not add item: Invalid Entries in Fields.");
       }
     } else {
-      alert("Please specify a name for your product.")
+      alert("Please specify a name for your product.");
     }
   };
+
+  getClass = (id) => {
+    if (!id.includes("quantity") && !id.includes("Price")) {
+      return "word";
+    } else {
+      return "number";
+    }
+  }
+
+  getStep = (id) => {
+    if (id.includes("quantity")) {
+      return "1";
+    } else {
+      return "0.01";
+    }
+  }
 
   render() {
     const itemFields = [
@@ -71,8 +92,8 @@ class ItemModal extends Component {
       { name: "Purchase Price", id: "purchasePrice" },
       { name: "Sell Price", id: "sellPrice" },
       { name: "Barcode", id: "barcode" },
-      { name: "Description", id: "description" },
-    ]
+      { name: "Description", id: "description" }
+    ];
     return (
       <div>
         <Button
@@ -89,32 +110,21 @@ class ItemModal extends Component {
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                {itemFields.map((item) =>
-                  <React.Fragment
-                    key={item.id}>
-                    <Label
-                      for={item.id}>{item.name}</Label>
-                    {item.id.includes("Price") || item.id.includes("quantity") ?
-                      <Input
-                        type="number"
-                        min="0"
-                        name={item.id}
-                        id={item.id}
-                        onKeyDown={this.handleKeyDown}
-                        placeholder={`Add ${item.name} Here...`}
-                        onChange={this.onChange}
-                      />
-                      : <Input
-                        type="text"
-                        name={item.id}
-                        id={item.id}
-                        onKeyDown={this.handleKeyDown}
-                        placeholder={`Add ${item.name} Here...`}
-                        onChange={this.onChange}
-                      />
-                    }
+                {(itemFields.map((item) => (
+                  <React.Fragment key={item.id}>
+                    <Label for={item.id}>{item.name}</Label>
+                    <Input
+                      type={this.getClass(item.id)}
+                      min="0"
+                      step={this.getStep(item.id)}
+                      name={item.id}
+                      id={item.id}
+                      onKeyDown={this.handleKeyDown}
+                      placeholder={`Add ${item.name} Here...`}
+                      onChange={this.onChange}
+                    />
                   </React.Fragment>
-                )}
+                )))}
                 <Button color="dark" style={{ marginTop: "2rem" }} block>
                   Publish
                 </Button>
