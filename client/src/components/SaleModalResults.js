@@ -28,6 +28,7 @@ class SaleModal extends Component {
         _id: "none",
         quantity: -1,
         sellPrice: 0,
+        description: "none",
         barcode: 0
       }
     };
@@ -42,6 +43,7 @@ class SaleModal extends Component {
           soldItem: {
             name: this.currentItem.name,
             barcode: this.currentItem.barcode,
+            description: this.currentItem.description,
             _id: this.currentItem._id,
             quantity: this.state.currentQuantity,
             sellPrice: this.state.currentPrice
@@ -81,10 +83,15 @@ class SaleModal extends Component {
     return (
       <div className="sale-container">
         <Row>
-          <Col>
-            <h2>{this.currentItem.name}</h2>
+          <Col sm={{ offset: 1 }}>
+            <Row>
+              <h2>{this.currentItem.name}</h2>
+            </Row>
+            <Row>
+              <p style={{ fontStyle: "italics" }}>{this.currentItem.description}</p>
+            </Row>
           </Col>
-          <Col>
+          <Col sm={{ offset: 2 }}>
             <Row>
               <p>Sell Price: {moneyFormat(this.currentItem.sellPrice)}</p>
             </Row>
@@ -150,10 +157,10 @@ class SaleModal extends Component {
             <ModalFooter>
               <Button color="primary" onClick={this.submitSaleResult}>
                 Purchase
-              </Button>{" "}
+                </Button>{" "}
               <Button color="secondary" onClick={this.props.toggle}>
                 Cancel
-              </Button>
+                </Button>
             </ModalFooter>
           </React.Fragment>
         </Provider>

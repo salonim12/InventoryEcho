@@ -20,6 +20,7 @@ class ItemModal extends Component {
     quantity: 0,
     purchasePrice: 0,
     sellPrice: 0,
+    description: "",
     barcode: "",
   };
 
@@ -70,6 +71,7 @@ class ItemModal extends Component {
       { name: "Purchase Price", id: "purchasePrice" },
       { name: "Sell Price", id: "sellPrice" },
       { name: "Barcode", id: "barcode" },
+      { name: "Description", id: "description" },
     ]
     return (
       <div>
