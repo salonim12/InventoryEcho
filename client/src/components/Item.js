@@ -20,7 +20,7 @@ class Item extends Component {
     return (
       <CSSTransition key={this.state._id} timeout={500} classNames="fade">
         <React.Fragment>
-          <ListGroupItem >
+          <ListGroupItem id={`itemtype-${this.props.id}`}>
             <div style={{ display: "inline-block", width: "90%" }}>
               <div style={{ float: "left" }} onClick={this.props.toggleShowEditModal.bind(this, this.state)}>
                 <Row>
