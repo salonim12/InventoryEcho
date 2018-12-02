@@ -24,6 +24,7 @@ You need **Node.js** and **Redux DevTools** prior to installing.
 **Evan Ugarte** - [evanugarte](https://github.com/evanugarte)
 **Ali Zand** - [alizand1992](https://github.com/alizand1992)
 **Sang To** - [SangT](https://github.com/SangT)
+**Saloni Madaan** - [salonim12](https://github.com/salonim12)
 
 ## Acknowledgments
 
